@@ -1,0 +1,108 @@
+// 高精加原理      
+//字符型倒序录入int型  利用清0函数  % / ++ 控制进位 
+//循环控制输出的位数
+ 
+int main()
+{
+	char a1[100], b1[100];
+	int a[100], b[100], c[100], lena, lenb, lenc, i, x;
+	memset(a, 0, sizeof(a));//清0函数
+	memset(b, 0, sizeof(b));
+	memset(c, 0, sizeof(c));
+	gets_s(a1);
+	gets_s(b1);
+	lena = strlen(a1);
+	lenb = strlen(b1);
+
+	for (i = 0; i < lena ; i++)
+	{
+		a[lena - i-1] = a1[i] - 48;
+	}
+	for (i = 0; i < lenb ; i++)
+	{
+		b[lenb - i-1] = b1[i] - 48;
+	}
+
+	lenc = 0;
+	x = 0;
+	while (lenc < lena || lenc < lenb)
+	{
+		c[lenc] = a[lenc] + b[lenc] + x;
+		x = c[lenc] / 10;
+		c[lenc] %= 10;
+		lenc++;
+	}
+	c[lenc] = x;
+	if (c[lenc] == 0)
+	{
+		lenc--;
+	}
+	for (i = lenc; i >= 0; i--)
+	{
+		cout << c[i];
+	}
+	cout<<endl;
+	return 0;
+}
+//阶乘和
+#include<iostream>
+using namespace std;
+int num2, flag = -1;
+int shuzu[500] = { 0 }, ans[500] = { 0 };
+
+void fun1(int num) {
+
+	for (; num > 0; num--)
+	{
+		int temp;
+		for (temp = 0; temp < 500; temp++)
+			shuzu[temp] *= num;
+		for (temp = 499; temp > 0; temp--)
+		{
+			if (shuzu[temp] >= 10) {
+				shuzu[temp - 1] += shuzu[temp] / 10;
+				shuzu[temp] %= 10;
+			}
+		}
+	}
+}
+
+int main()
+{
+	int i;
+	shuzu[499] = 1;
+	ans[499] = 0;
+	cin >> num2;
+	for (int temp = num2; temp > 0; temp--)
+	{
+		fun1(temp);
+		for (i = 0; i < 500; i++)
+		{
+			ans[i] += shuzu[i];
+		}
+		int temp2;
+		for (temp2 = 0; temp2 < 500; temp2++)
+			shuzu[temp2] = 0;
+		shuzu[499] = 1;
+	}
+	int temp;
+	for (temp = 499; temp > 0; temp--)
+	{
+		if (ans[temp] >= 10) {
+			ans[temp - 1] += ans[temp] / 10;
+			ans[temp] %= 10;
+		}
+	}
+
+	for (temp = 0; temp < 500; temp++)
+	{
+		while (ans[temp] != 0)
+		{
+			flag = temp;
+			break;
+		}
+		if (flag != -1)break;
+	}
+	for (temp = flag; temp < 500; temp++)
+		cout << ans[temp];
+}
