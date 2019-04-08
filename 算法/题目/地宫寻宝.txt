@@ -1,0 +1,47 @@
+
+//dfs 加 记忆化搜索
+
+#include<iostream>
+#define N 1000000007 
+#include<cstring>
+using namespace std;
+int n,m,k;
+int mapvalue[51][51];
+int dp[55][55][15][15];//动态规划路径 
+int dfs(int x,int y,int num,int maxv){
+     //判断路径有没走过 
+if(dp[x][y][num][maxv+1]!=-1)
+   return dp[x][y][num][maxv+1]; //走过就用统计过的路径(“记忆”的部分) 
+if(x==n&&y==m){  //走到了右下角
+     //分拿走或者不拿走右下角那个宝藏,都是一种方案 
+   if(num==k||(num==k-1&&maxv<mapvalue[x][y]))
+   return dp[x][y][num][maxv+1]=1;
+   else return dp[x][y][num][maxv+1]=0;// 否则失败
+}
+//统计路径方案 
+long long s=0;
+//向下深搜，分取或者不取这个宝物，由宝物价值判断 
+if(x+1<=n){   //向下控制不出界限 
+      if(maxv<mapvalue[x][y])
+s+=dfs(x+1,y,num+1,mapvalue[x][y]);
+s+=dfs(x+1,y,num,maxv);//也可以不取 
+}
+//向右深搜 分取或者不取这个宝物，由宝物价值判断
+if(y+1<=m){ //向下控制不出界 
+if(maxv<mapvalue[x][y])
+s+=dfs(x,y+1,num+1,mapvalue[x][y]);
+s+=dfs(x,y+1,num,maxv);//也可以不取 
+  }
+   return dp[x][y][num][maxv+1]=s%N;
+}
+int main(){
+int i,j;
+cin>>n>>m>>k;
+for(i=1;i<=n;i++)
+for(j=1;j<=m;j++){
+  cin>>mapvalue[i][j];
+}
+memset(dp,-1,sizeof(dp)); 
+    dfs(1,1,0,-1);
+    cout<<dp[1][1][0][0];
+return 0; }
