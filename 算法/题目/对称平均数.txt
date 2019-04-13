@@ -1,10 +1,6 @@
 打印所有不超过n（n<256）的，其平方具有对称性质的数。如11*11=121。
 
 
-
-
-
-
 //循环
 #include<iostream>
 using namespace std;
