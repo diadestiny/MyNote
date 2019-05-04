@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+const int maxn = 1e5 + 1;
+int a[maxn];
+int max(int a, int b) {
+
+	return a > b ? a : b;
+}
+struct foo {
+	int l, r;
+	int max;
+};
+struct foo tree[4 * maxn];
+void build(int n, int l, int r) {
+	tree[n].l = l;
+	tree[n].r = r;
+	if (l == r) {
+		tree[n].max = a[l];
+	}
+	else {
+
+		int mid = (l + r) / 2;
+		build(n * 2, l, mid);
+		build(n * 2 + 1, mid + 1, r);
+		tree[n].max = max(tree[2 * n].max, tree[n * 2 + 1].max);
+	}
+
+}
+int query(int n, int l, int r) {
+
+	int mid = (tree[n].l + tree[n].r) / 2;
+	if (tree[n].l == l && tree[n].r == r) {
+		return tree[n].max;
+	}
+	else if (r <= mid) {
+		return query(n * 2, l, r);
+	}
+	else if (l > mid) {
+		return query(n * 2 + 1, l, r);
+	}
+	else {
+		return max(query(n * 2, l, mid), query(n * 2 + 1, mid + 1, r));
+	}
+
+}
+int main()
+{
+	int n;
+	int l, r;
+
+	cin >> n;
+	for (int i = 1; i <= n; i++) {
+		cin >> a[i];
+	}
+	build(1, 1, n);
+
+
+	cin >> l >> r;
+	cout << query(1, l, r) << endl;
+
+
+	return 0;
+
+}
+
