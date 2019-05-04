@@ -4,7 +4,7 @@ Status ListInsert(SqList *L,int i,ElemType e){
 
     int k;
     if(L->length==MAXSIZE){
-        return ERROR£»
+        return ERROR;
     }
     if(i<1||i>L->length){
         return ERROR;

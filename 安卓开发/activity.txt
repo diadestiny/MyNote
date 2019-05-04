@@ -1,0 +1,33 @@
+显式启动的三种写法
+/* 	Intent intent = new Intent();
+                intent.setClass(MyActivity.this,SecondActivity.class);
+                startActivity(intent);
+
+             Intent intent = new Intent();
+             intent.setClassName(MyActivity.this, "com.example.activitylesson1.SecondActivity");
+             startActivity(intent);
+
+             Intent intent  = new Intent();
+             ComponentName componentName = new ComponentName(MyActivity.this,SecondActivity.class);
+             intent.setComponent(componentName);
+             startActivity(intent);
+*/
+//隐式启动两种写法
+                 Intent intent = new Intent("abcd.secondActivity");
+                 startActivity(intent);
+
+                  Intent intent = new Intent();
+                  intent.setAction("abcd.secondActivity");
+                  startActivity(intent);
+
+onCreate()创建时调用
+onStart()当 activity界面变成用户可见时调用
+onResume()当activity 界面获取到焦点时调用
+
+
+onPause() 当activity失去焦点
+onStop()当activity变为不可见
+onDestory()当activity变为销毁
+
+
+onRestart()当activity再次启动时调用
