@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+struct node{
+    int num;
+    struct node * next;
+};
+
+typedef struct node Node;
+
+int main(){
+    Node *head=(Node*)malloc(sizeof(Node));
+    Node *curp=NULL,*prep=NULL;
+    prep = head;
+    int x;
+    scanf("%d",&x);
+    while(x>=0){
+       curp=(Node*)malloc(sizeof(Node));
+       curp->num=x;
+       curp->next=NULL;
+       prep->next=curp;
+       prep= curp;
+       scanf("%d",&x);
+    }
+    Node *cha =head->next;
+    while(cha!=NULL){
+
+        printf("%d->",cha->num);
+        cha=cha->next;
+    }
+    return 0;
+}
+建表思路:
+/* 先申请头结点head字节 */
+/* 把head设置为prep */
+/* 输入数据 合法则申请curp字节 */
+/* 先对curp处理data=x 和next=null */
+/* 再连接prep和curp prep.next = curp */
+/* 设置prep = curp */
+核心点(一个head 队伍头 两个施工者(prep和crup))
+查表思路:
+Node * cha =head->next;
+while(cha!=NULL){
+//打印处理
+//cha = cha->next;
+}
