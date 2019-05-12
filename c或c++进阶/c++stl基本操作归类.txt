@@ -1,0 +1,269 @@
+//以下内容为转载归类
+//出处:https://www.cnblogs.com/cxq0017/p/6555533.html
+
+1：关联容器和顺序容器
+　　c++中有两种类型的容器：顺序容器和关联容器，顺序容器主要有：vector、list、deque等。其中vector表示一段连续的内存地址，基于数组的实现，list表示非连续的内存，基于链表实现。deque与vector类似，但是对于首元素提供删除和插入的双向支持。关联容器主要有map和set。map是key-value形式的，set是单值。map和set只能存放唯一的key值，multimap和multiset可以存放多个相同的key值。
+容器类自动申请和释放内存，我们无需new和delete操作。
+
+2：顺序容器的介绍
+1):vector，需要包含头文件#include<vector>
+
+     //1.定义和初始化
+     vector<int> vec1;    //默认初始化，vec1为空
+     vector<int> vec2(vec1);  //使用vec1初始化vec2
+     vector<int> vec3(vec1.begin(),vec1.end());//使用vec1初始化vec2
+     vector<int> vec4(10);    //10个值为0的元素
+     vector<int> vec5(10,4);  //10个值为4的元素
+  
+     //2.常用操作方法
+     vec1.push_back(100);            //尾部添加元素
+     int size = vec1.size();         //元素个数
+     bool isEmpty = vec1.empty();    //判断是否为空
+     cout<<vec1[0]<<endl;        //取得第一个元素
+     vec1.insert(vec1.end(),5,3);    //从vec1.back位置插入5个值为3的元素
+     vec1.pop_back();              //删除末尾元素
+     vec1.erase(vec1.begin(),vec1.begin()+2);//删除vec1[0]-vec1[2]之间的元素，不包括vec1[2]其他元素前移
+    cout<<(vec1==vec2)?true:false;  //判断是否相等==、！=、>=、<=...
+     vector<int>::iterator iter = vec1.begin();    //获取迭代器首地址
+    vector<int>::const_iterator c_iter = vec1.begin();   //获取const类型迭代器
+    vec1.clear();                 //清空元素
+  
+     //3.遍历
+     //下标法
+    int length = vec1.size();
+     for(int i=0;i<length;i++)
+     {
+        cout<<vec1[i];
+     }
+     cout<<endl<<endl;
+     //迭代器法
+    vector<int>::iterator iter = vec1.begin();
+     for(;iter != vec1.end();iter++)
+     {
+        cout<<*iter;
+     }
+
+2)list,list是stl实现的双向链表，与向量vector想比，它允许快速的插入和删除，但是随机访问却是比较慢，需要添加头文件#include<list>
+主要的操作：
+//1.定义和初始化
+    list<int> lst1;          //创建空list
+    list<int> lst2(3);       //创建含有三个元素的list
+    list<int> lst3(3,2); //创建含有三个元素为2的list
+    list<int> lst4(lst2);    //使用lst2初始化lst4
+    list<int> lst5(lst2.begin(),lst2.end());  //同lst4
+ 
+    //2.常用操作方法
+    lst1.assign(lst2.begin(),lst2.end());  //分配值,3个值为0的元素
+    lst1.push_back(10);                    //末尾添加值
+    lst1.pop_back();                   //删除末尾值
+    lst1.begin();                      //返回首值的迭代器
+    lst1.end();                            //返回尾值的迭代器
+    lst1.clear();                      //清空值
+    bool isEmpty1 = lst1.empty();          //判断为空
+    lst1.erase(lst1.begin(),lst1.end());                        //删除元素
+    lst1.front();                      //返回第一个元素的引用
+    lst1.back();                       //返回最后一个元素的引用
+    lst1.insert(lst1.begin(),3,2);         //从指定位置插入个3个值为2的元素
+    lst1.rbegin();                         //返回第一个元素的前向指针
+    lst1.remove(2);                        //相同的元素全部删除
+    lst1.reverse();                        //反转
+    lst1.size();                       //含有元素个数
+    lst1.sort();                       //排序
+    lst1.unique();                         //删除相邻重复元素
+ 
+    //3.遍历
+    //迭代器法
+    for(list<int>::const_iterator iter = lst1.begin();iter != lst1.end();iter++)
+    {
+       cout<<*iter;
+    }
+3):deque
+　　deque容器类与vector类似，支持随机访问和快速插入和删除，与vector不同，deque还支持从开始端插入数据：push_front。其余的类似vector操作方法的使用.
+
+3:关联容器的介绍
+1）map的介绍
+　　c++map容器提供一个键值对(key/value)容器，map与multimap差别仅仅在于multimap允许一个键对应多个值。需要包含头文件#include<map>。对于迭代器来说，可以修改实值，而不能修改key。map会根据key自动排序.
+常用操作如下：
+    //1.定义和初始化
+    map<int,string> map1;                  //空map
+   
+    //2.常用操作方法
+    map1[3] = "Saniya";                    //添加元素
+    map1.insert(map<int,string>::value_type(2,"Diyabi"));//插入元素
+    //map1.insert(pair<int,string>(1,"Siqinsini"));
+    map1.insert(make_pair<int,string>(4,"V5"));
+    string str = map1[3];                  //根据key取得value，key不能修改
+    map<int,string>::iterator iter_map = map1.begin();//取得迭代器首地址
+    int key = iter_map->first;             //取得key
+    string value = iter_map->second;       //取得value
+    map1.erase(iter_map);                  //删除迭代器数据
+    map1.erase(3);                         //根据key删除value
+    map1.size();                       //元素个数
+    map1.empty();                       //判断空
+    map1.clear();                      //清空所有元素
+ 
+    //3.遍历
+    for(map<int,string>::iterator iter = map1.begin();iter!=map1.end();iter++)
+    {
+       int keyk = iter->first;
+       string valuev = iter->second;
+    }
+
+2)set集合
+set的含义是集合，它是一个有序的容器，里面的元素都是排序好的支持插入、删除、查找等操作，就像一个集合一样，所有的操作都是严格在logn时间内完成，效率非常高。set和multiset的区别是：set插入的元素不能相同，但是multiset可以相同，set默认是自动排序的，使用方法类似list。
+
+4：几种容器的比较
+1)vector
+内部数据结构：数组。
+在末尾增加或者删除元素所需时间与元素数目无关，在中间或者开头增加或者删除元素所需时间是随元素数目呈线性变化。
+2):deque
+内部数据结构是：数组
+随机访问每个元素，所需要的时间为常量。在开头和末尾增加元素所需时间与元素数目无关，在中间增加或删除所需时间随元素数目呈线性变化。
+3)list
+内部数据结构：双向环状链表
+不能随机访问一个元素，可双向遍历，在开头，末尾和中间的任何地方增加或者删除元素所需时间都是常量。
+4)set
+键和值相等。
+键唯一
+元素默认按升序排列、
+5)map
+键唯一，
+元素默认按键的升序排列
+
+那如何在迭代容器时删除其中的元素？各容器通用的做法如下：看下面的例子
+#include "stdafx.h"
+#include<iostream>
+#include<vector>
+#include<map>
+#include<deque>
+#include<list>
+
+using namespace std;
+
+
+int main()
+{
+    vector<int> vect;
+    for(int i = 0; i < 10; i++ )
+    {
+        vect.push_back(i);
+    }
+    vector<int>::iterator iter = vect.begin();
+    for(; iter != vect.end(); )
+    {
+         if( *iter % 2 == 0 )
+         {
+            //vect.erase(iter++); //测试 使用vect.erase(iter++) 行不通，我看网上有些人写到这种方式也可行？表示奇怪。
+             iter = vect.erase(iter); 
+         }
+         else
+         {
+             iter++;
+         }
+    }
+
+   //////////////////////////////下面是对deque的测试////////////////////////////
+    deque<int> myDeque;
+    for( int i = 0; i < 10; i++ )
+    {
+        myDeque.push_back(i);
+    }
+    deque<int>::iterator deiter = myDeque.begin();
+    for(; deiter != myDeque.end();)
+    {
+        if( *deiter % 2 == 0 )
+        {
+            //myDeque.erase(deiter++); //同样这里vect.erase(iter++) 行不通
+            deiter = myDeque.erase(deiter);
+        }
+        else
+        {
+            deiter++;
+        }
+    }
+
+    //////////////////////////////下面对list的测试//////////////////////
+    list<int> myList;
+    for( int i = 0; i < 10; i++ )
+    {
+        myList.push_back(i);
+    }
+    list<int>::iterator listiter = myList.begin();
+    for(; listiter != myList.end();)
+    {
+        if( *listiter % 2 == 0 )
+        {
+            //myList.erase(listiter++);
+            listiter = myList.erase(listiter); //对于list这两种方式都可以的.因为对于list来说仅有指向被删除元素的迭代器失效，并不会导致所有的迭代器失效.
+        }
+        else
+        {
+            listiter++;
+        }
+    }
+    //////////////////////下面是对map的测试/////////////////////////////
+    map<int,int> myMap;
+    myMap[0] = 1;
+    myMap[1] = 2;
+    myMap[2] = 3;
+    myMap[3] = 4;
+    map<int,int>::iterator it = myMap.begin();
+    for(; it != myMap.end(); )
+    {
+        if( (it->second) % 2 == 0 )
+        {
+            myMap.erase(it++);
+            //it = myMap.erase(it); //对于map这两种方法都可以 c++11 才开始支持返回当前的迭代器，之前的可能没有返回值，所以这种方法不管用
+        }
+        else
+        {
+            it++;
+        }
+    }
+    //////////////set 跟map一样///////////////
+    system("pause");
+    return 0;
+}
+
+
+C++中pair的用法
+一、概述
+    pair是将2个数据组合成一个数据，当需要这样的需求时就可以使用pair，如STL中的map就是将key和value放在一起来保存。另一个应用是，当一个函数需要返回2个数据的时候，可以选择pair。 pair的实现是一种结构体，主要的两个成员变量是first, second 因为是使用struct不是class，所以可以直接使用pair的成员变量。
+二、定义
+
+pair<T1, T2> p1;           //创建一个空的pair对象（使用默认构造），它的两个元素分别是T1和T2类型，采用值初始化。
+pair<T1, T2> p1(v1, v2);   //创建一个pair对象，它的两个元素分别是T1和T2类型，其中first成员初始化为v1，second成员初始化为v2。
+make_pair(v1, v2);         // 以v1和v2的值创建一个新的pair对象，其元素类型分别是v1和v2的类型。
+p1 < p2;                   // 两个pair对象间的小于运算，其定义遵循字典次序：如 p1.first < p2.first 或者 !(p2.first < p1.first) && (p1.second < p2.second) 则返回true。
+p1 == p2；                 // 如果两个对象的first和second依次相等，则这两个对象相等；该运算使用元素的==操作符。
+p1.first;                  // 返回对象p1中名为first的公有数据成员
+p1.second;                 // 返回对象p1中名为second的公有数据成员
+
+三、pair的创建和初始化
+pair包含两个数值，与容器一样，pair也是一种STL模板类型。但是又与之前介绍的容器不同；在创建pair对象时，必须提供两个类型名，两个对应的类型名的类型可自由定义。
+pair<string, string> ob;        　　// 创建一个空对象ob，两个元素类型都是string
+pair<string, int> a;     　　　　　　// 创建一个空对象 a, 两个元素类型分别是string和int类型
+pair<string, vector<int> > b;  　　// 创建一个空对象b，两个元素类型分别是string和vector类型
+四、pair的排序
+加入头文件
+#include<algorithm>
+ 
+1. 默认的sort()函数
+pair<int,int>Item[n];    //定义pair对象数组Item[n]
+sort(Item, Item+n); 　　//默认对Item的first的值进行排序
+2. 自定义的sort()函数
+bool cmp（pair<int, int>a, pair<int, int>b）
+{
+    return a.first<b.first;            //根据fisrt的值升序排序
+}    
+bool cmp（pair<int, int>a, pair<int, int>b）
+{
+    return a.first>b.first;            //根据second的值升序排序
+} 
+调用sort()函数
+sort(Item, Item+n, cmp);       // 按照自定义的顺序进行排序
+ 五、自定义pair类型
+typedef pair<int, int>P;
+
+
+
