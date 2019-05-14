@@ -1,0 +1,17 @@
+1、(9分)已知存在声明:		
+void func(int iA, int iB) {}
+int main() {
+	int iA = 1, iB = 1, iC;
+	int dbarr[3][3] = {};
+	int **p1 = (int **)dbarr;
+	int(*p2)[3] = (int (*)[3])dbarr;
+	______________________
+	return 0;
+}下列哪些表达式语句在C语言中是错误或未定义的(		)
+A、iC = iA = iB;   B、iA = iB + iC;   C、iC = iA + iB == iA;   D、(iC = iA) = iB;   E、func(iA, ++iA);   F、iA = ++iA;
+G、p1[2][2] = 3;   H、p2[2][2] = 3;
+
+B,D,E,F,G
+其中C++的同学可以不选D和F
+注:
+单独挑出选了G没选H和选了E选项和选了F选项的同学

@@ -1,0 +1,134 @@
+简单有序链表的创建和查询修改
+（1）建立一个单链表 21  3  15  27  11  18，并输出该链表； 
+（2）输入序号n，查找序号为n的结点，并输出； 
+（3）输入值x，查找值为x的结点，并输出； 
+（4）插入结点: 输入序号 n和值x。在序号为n的结点后插入x，并输出该链表； 
+（5）删除结点: 输入序号 n，册除序号为 n 的结点，并输出该链表。
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+struct list{
+int n,x;
+struct list * next;
+};
+typedef struct list List;
+int i,len=6;
+List *p,*t;
+
+List * buildlist(){
+    List * head=NULL;
+    List * tail=NULL;
+    for(i=1;i<=len;i++){
+        p=(List*)malloc(sizeof(List));
+        p->n=i;
+        printf("Input %d value of number：\n",i);
+        scanf("%d",&p->x);
+        if(head==NULL){
+            head=p;
+            tail=p;
+        }
+        else{
+            tail->next=p;
+            tail=p;
+        }
+    }
+    tail->next=NULL;
+    return head;
+}
+void search_n(List* head){
+    int n,flag;
+    printf("Please input n:\n");
+    scanf("%d",&n);
+    p=head;
+    while(p!=NULL){
+        if(p->n==n){
+            printf("%d %d\n",p->n,p->x);
+            flag=1;
+        }
+        p=p->next;
+    }
+    if(!flag){
+         printf("Not find %d number's node.\n",n);
+    }
+
+}
+void search_x(List* head){
+    int x,flag;
+    printf("Please input x:\n");
+    scanf("%d",&x);
+    p=head;
+    while(p!=NULL){
+        if(p->x==x){
+            printf("%d %d\n",p->n,p->x);
+            flag=1;
+        }
+        p=p->next;
+    }
+    if(!flag){
+         printf("Not find %d number's value.\n",x);
+    }
+
+}
+
+List* insert(List * head){
+ int n,x;
+ printf("Please input n and x\n");
+ scanf("%d%d",&n,&x);
+ List * k=(List*)malloc(sizeof(List));
+ k->n=n;
+ k->x=x;
+ p=head;
+ while(p->n!=n){
+    p=p->next;
+ }
+ if(p->next!=NULL){
+    t=p->next;
+    p->next=k;
+    k->next=t;
+ }
+ else{
+    p->next=k;
+    k->next=NULL;
+ }
+
+
+    return head;
+}
+
+List* delete1(List* head){
+    int n;
+    printf("Please input n to delete the node:\n");
+    scanf("%d",&n);
+    p=head;
+    while(p!=NULL){
+        if(p->n==n){
+            p=p->next;
+            t->next=p;
+        }
+        t=p;
+        p=p->next;
+    }
+    return head;
+}
+void output(List * head){
+printf("the current list \n");
+p=head;
+while(p!=NULL){
+    printf("%d %d\n",p->n,p->x);
+    p=p->next;
+}
+}
+int main(){
+    List * li =buildlist();
+    output(li);
+    search_n(li);
+    search_x(li);
+    insert(li);
+    output(li);
+    delete1(li);
+    output(li);
+
+
+ return 0;
+}

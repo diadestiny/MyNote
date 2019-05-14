@@ -11,7 +11,7 @@ int main(int a,char* argv[])
         printf("%d",atoi(argv[1])*atoi(argv[3]));
     if(strcmp(argv[2],"/")==0){
         if(strcmp(argv[3],"0")==0){
-                printf("除数不能为0,非法");
+                printf("鲁媒脢媒虏禄脛脺脦陋0,路脟路篓");
             return 0;
         }
          printf("%.2lf",atof(argv[1])/atof(argv[3]));
