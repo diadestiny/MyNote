@@ -58,7 +58,68 @@ Toast效果代码: *Toast.makeText(MainActivity.this,"You arrived at Huajiang",Toast
     }
 
 
-
 在button的onClick方法中加上finish(); //等效按下back 销毁当前活动
+
+
+使用Intent在活动之间通讯
+创建好empty activity  关联布局 注册活动 //在button中实验
+public void onClick(View v) {
+                *Intent intent =new Intent(MainActivity.this,SecondActivity.class);*//显式启动
+               *startActivity(intent);*
+      }  
+
+//隐式启动
+<activity android:name=".Second">
+            <intent-filter>
+                <action android:name="com.example.day01.Second"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+ </activity>
+java代码:Intent intent=new Intent("com.example.day01.Second"); 
+
+//注意点 new Intent 中 com.example.day01.Second 与 android:name="com.example.day01.Second" 应当一致才能响应
+
+Activity之间的数据传递 
+在intent中附近加入
+intent.putExtra("extra_data",data);
+
+响应方加入代码:
+        *Intent intent =getIntent();*
+        *String data =intent.getStringExtra("extra_data");*
+        TextView textView = findViewById(R.id.tv_data);
+        textView.setText(data);
+响应方返回数据:
+1.请求方启动代码: startActivityForResult(intent,1);
+2.响应方  
+        //按钮来操作 包括销毁
+        Intent intent =new Intent();
+        intent.putExtra("data_return","Hello nihao");
+        setResult(RESULT_OK,intent);
+        finish();
+
+或者:通过back键来操作:
+@Override
+    public void onBackPressed() {
+        Intent intent =new Intent();
+        intent.putExtra("data_return","xxxxx");
+        setResult(RESULT_OK,intent);
+        finish();
+    }
+3.请求方重写方法
+ @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode){
+            case 1:
+                if(resultCode==RESULT_OK){
+                    String returndata = data.getStringExtra("data_return");
+                    Log.d("123",returndata);
+                }
+                break;
+                default:
+        }
+    }
+
+大部分情况下 内存足够的话 一般按back键返回主activity 主activity会执行onRestart()和onStart() 和onResume() 
+当内存不足的话 才会回收主活动 不会执行onRestart() 而是执行onCreate()方法
 
 
