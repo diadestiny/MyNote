@@ -1,36 +1,69 @@
-给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
+Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
 
-示例 1:
+Example 1:
 
-输入: n = 12
-输出: 3 
-解释: 12 = 4 + 4 + 4.
-示例 2:
+Input: n = 12
+Output: 3 
+Explanation: 12 = 4 + 4 + 4.
+Example 2:
 
-输入: n = 13
-输出: 2
-解释: 13 = 4 + 9.
+Input: n = 13
+Output: 2
+Explanation: 13 = 4 + 9.
 
 class Solution {
 public:
     int numSquares(int n) {
         queue<int> q;
-        vector<int> dist (n+1,INT_MAX);
         q.push(0);
-        dist[0]=0;
+        vector<int> f(n+1,INT_MAX);
+        f[0]=0;
         while(q.size()){
-            int t=q.front();
+            int s=q.front();
             q.pop();
-            if(t==n) return dist[t];
-            for(int i=1;t+i*i<=n;i++){
-                int j=t+i*i;
-                if(dist[j]>dist[t]+1){
-                    dist[j]=dist[t]+1;
-                    q.push(j);
+            if(s==n) break;
+            for(int i=1;i*i+s<=n;i++){
+                if(f[s+i*i]>f[s]+1){
+                    f[s+i*i]=f[s]+1;
+                    q.push(s+i*i);
                 }
-            }
-           
-        }
-         return 0;
+        }    
+    }
+        return f[n];
     }
 };
+/*BFS思想（有限制条件）
+n=12
+
+f0=0 
+f1=1 f4=1 f9=1 (f0没了)
+f2=2 f5=2 f10=2 (f1没了)
+f5 (不会进去)  f8=2 (f4没了)
+f10（不会进去） (f9没了)
+f3=3  f6=3 f11=3（f2没了）
+f6（不会进去） f9（不会进去）  （f5没了） 
+f11(不会进去) (f10没了)
+f9（不会进去） f12=3 （伪终点）(f8没了)
+f4（不会进去） f7=4  f12（=4不会进去）	（f3没了） 
+...(f6没了)
+...(f11没了)
+f12(=3的f12win了)
+
+
+
+			3
+		2	6
+			11	
+	1	5
+
+		10		
+
+
+
+0（起点）  4	8	12 (程序还没有到终点 )
+	
+
+
+
+	9	
+*/
