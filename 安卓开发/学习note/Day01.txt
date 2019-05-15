@@ -1,0 +1,64 @@
+在Activity中加载布局的方法:
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+     *setContentView(R.layout.activity_main);*
+    }
+
+在AndroidManifest文件中注册Activity(其实是一个类)
+ <activity android:name=".MainActivity">
+ </activity>
+
+修改app名称:
+ android:label="@string/app_name"
+<resources>
+    <string name="app_name">DayTest01</string>
+</resources>
+
+xml加一个button后，在Activity中添加代码:
+Button button1 =findViewById(R.id.xxx);
+为button1注册监听器:
+button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //...
+            }
+        });
+
+Toast效果代码: *Toast.makeText(MainActivity.this,"You arrived at Huajiang",Toast.LENGTH_SHORT).show();*
+
+//重写方法快捷键ctrl+o(win)
+
+创建右上角的menu和实现功能步骤:
+1.在res中新建menu文件夹 在里面加入main Menu resource file
+2.在main.xml添加项:
+	<item android:id="@+id/study_item"
+       	 android:title="Study"/>
+    	<item android:id="@+id/play_item"
+        	android:title="Play"/>
+3.Activity的java代码中重写onCreateOptionsMenu方法 
+	@Override
+    		public boolean onCreateOptionsMenu(Menu menu) {
+     		                getMenuInflater().inflate(R.menu.main,menu);
+        			return  true;
+    		}
+4.Activity的java代码中重写onOptionsItemSelected方法
+	@Override
+   	 public boolean onOptionsItemSelected(MenuItem item) {
+       	 switch (item.getItemId()){
+       	      case R.id.study_item:
+                      Toast.makeText(MainActivity.this,"我喜欢学习",Toast.LENGTH_SHORT).show();
+                      break;
+          	      case R.id.play_item:
+                      Toast.makeText(MainActivity.this,"我喜欢玩耍",Toast.LENGTH_SHORT).show();
+                      break;
+
+        }
+        return true;
+    }
+
+
+
+在button的onClick方法中加上finish(); //等效按下back 销毁当前活动
+
+
