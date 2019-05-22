@@ -1,0 +1,112 @@
+android:label配置app名字或者左上角名字
+android:launchMode配置活动启动模式 standard singleTop singleTask 
+
+standard启动模式，不管有没有已存在的实例，都生成新的实例。
+singleTop启动模式，如果发现有对应的Activity实例正位于栈顶，则重复利用，不再生成新的实例。假如需要的Activity实例不在栈顶，则也会创建。
+ingleTask模式，如果发现有对应的Activity实例，则使此Activity实例之上的其他Activity实例统统出栈，使此Activity实例成为栈顶对象，显示到幕前。
+singleInstance这种启动模式比较特殊，因为它会启用一个新的栈结构，将Acitvity放置于这个新的栈结构中，并保证不再有其他Activity实例进入。
+
+之桥当前在哪一个活动技巧:
+public class BaseActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate( Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("BaseActivity",getClass().getSimpleName());
+
+    }
+}
+让Activity去继承这个BaseActivity java class
+
+随时随地退出程序方法:
+1.新建一个java类:
+public class ActivityCollector {
+    public static List<Activity> activities =new ArrayList<>();
+    
+    public static  void  addActivity(Activity activity){
+        activities.add(activity);
+    }
+    public static void removeActivity(Activity activity){
+        activities.remove(activity);
+    }
+    
+    public static  void finishAll(){
+        for(Activity activity :activities){
+            if(!activity.isFinishing()){
+                activity.finish();
+            }
+        }
+    }
+2.在BaseActivity里面的oncreate方法加入ActivityCollector.addActivity(this); onDestroy方法加入ActivityCollector.removeActivity(this);
+3.在需要的地方加入 ActivityCollector.finishAll()方法
+
+启动活动的最佳写法:
+在你需要启动的Activity中加入:
+public static void actionStart(Context context,String data1,String data2){
+        Intent intent =new Intent(context,SecondActivity.class);
+        intent.putExtra("param1",data1);
+        intent.putExtra("param2",data2);
+        context.startActivity(intent);
+    }
+再在启动者需要启动的地方调用这个静态方法
+
+-----------------------------------------------------UI xml语言的学习-----------------------------------------
+textView常用属性:
+android:layout_width
+android:layout_width
+android:text
+android:gravity(对齐方式)
+android:textSize(字体大小sp)
+android:textColor（字体颜色"#00ff00")
+android:textAllCaps="false/true"(字体显示大小写)
+
+Button注册监听器:
+除了使用匿名类方式外，还可以使用实现接口的方式:
+implements View.OnClickListener
+
+button1.setOnClickListener(this);
+
+ @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.xxx:
+                //在此添加逻辑
+                break;
+                default:
+                    break;
+        }
+    }
+EditText:
+android:hint（提示信息）
+android:maxLines（控制行数）
+
+<ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/xxxx"
+        android:id="@+id/xxx"/>
+
+java代码中imageView.setImageResource(R.drawable.xxx);设置图片
+
+ProgressBar的visibility属性（可选值）和style属性 和max属性
+
+AlertDialog对话框及其java代码
+
+布局:
+LinearLayout线性布局
+注意layout_gravity属性的使用（控制控件位置）
+android:layout_weight 作用大大的
+Relative相对布局
+layout_alignParent Top/Left/Right/Bottom
+layout_above/below/toRightOf/toLeftOf
+FrameLayout帧布局
+
+layout_margin/Left/Right属性
+
+布局引用布局:
+<include Layout ="@layout/title"/>
+
+隐藏标题:
+ActionBar actionBar =getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.hide();
+        }

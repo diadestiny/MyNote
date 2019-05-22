@@ -122,4 +122,17 @@ intent.putExtra("extra_data",data);
 大部分情况下 内存足够的话 一般按back键返回主activity 主activity会执行onRestart()和onStart() 和onResume() 
 当内存不足的话 才会回收主活动 不会执行onRestart() 而是执行onCreate()方法
 
+回收之前保留数据方法:
+ @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String tempData ="onSaveInstanceState";
+        outState.putString("data_key",tempData);
+    }
+
+在oncreate方法里面加入:
+if(savedInstanceState!=null){
+            String tempData =savedInstanceState.getString("data_key");
+        }
+
 
