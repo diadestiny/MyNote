@@ -1,0 +1,29 @@
+
+刷题遇到一个求整数次幂的题目，了解到有一个快速幂算法，下面把自己的理解分享给大家。
+
+假设我们要求a^n，n为正整数（对于负整数次幂，先求正整数次幂再取倒数就行）。我们以n = 13为例，将n表示为2二进制：
+
+https://blog.csdn.net/csdnqixiaoxin/article/details/80958620
+
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    long long a,b,c,ans=1;//注意类型
+    
+    cin>>a>>b>>c;
+    if(b==0){
+        cout<< 1%c;
+        return 0;
+    }
+    ans%=c;
+   while (b){
+       if(b&1){
+           
+           ans=ans*a%c;
+       }
+       b>>=1;
+       a=a*a%c;
+   }
+   cout<<ans%c;
+ return 0;   
+}

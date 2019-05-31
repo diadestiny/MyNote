@@ -1,1 +1,73 @@
-ListView
+相对于父类控件的摆放：
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="中间"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="右上角"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="右下角"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左上角"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左下角"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
+
+相对于同级控件的摆放:
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--这是中间部分-->
+    <Button
+        android:id="@+id/center_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="中间"
+        android:layout_centerInParent="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我在中间右边"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/center_btn"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我在中间上边"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/center_btn"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我在中间左边"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/center_btn"/>
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="我在中间底部"
+    android:layout_centerHorizontal="true"
+    android:layout_below="@id/center_btn"/>
+</RelativeLayout>

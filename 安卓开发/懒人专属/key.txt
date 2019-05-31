@@ -2,6 +2,11 @@ AS操作:
 ctrl+shift+U 大小写切换
 shift+f6 统一修改命名
 ctrl+D 向下复制一行
+ctrl+alt+f 抽取全局变量
+ctrl+p 方法参数提醒
+ctrl+/ 注释代码
+shift+f6 重命名
+
 
 Win10操作:
 ctrl+win+上/下 最大/小化当前窗口
