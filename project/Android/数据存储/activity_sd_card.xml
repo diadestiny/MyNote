@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/write_data_sd_data_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="往sd卡写数据"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sd_cast_check_btn"
+        android:text="检查sd卡"/>
+    <Button
+        android:id="@+id/get_sd_card_free_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取可用空间"/>
+
+</LinearLayout>
