@@ -1,5 +1,12 @@
 TableLayout(表格布局)
-
 学习出处:https://www.runoob.com/w3cnote/android-tutorial-tablelayout.html
 
+tools:text 相当于注释预览
 
+FrameLayout的属性很少就两个,但是在说之前我们先介绍一个东西:
+前景图像:永远处于帧布局最上面,直接面对用户的图像,就是不会被覆盖的图片。
+两个属性:
+android:foreground:*设置改帧布局容器的前景图像
+android:foregroundGravity:设置前景图像显示的位置
+
+//好地方:www.runoob.com
