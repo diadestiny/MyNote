@@ -10,3 +10,40 @@ android:foreground:*设置改帧布局容器的前景图像
 android:foregroundGravity:设置前景图像显示的位置
 
 //好地方:www.runoob.com
+
+
+适配器C的作用是数据M和视图V之间的桥梁 (MVC)
+
+BaseAdapter：抽象类，实际开发中我们会继承这个类并且重写相关方法，用得最多的一个Adapter！
+ArrayAdapter：支持泛型操作，最简单的一个Adapter，只能展现一行文字~
+SimpleAdapter：同样具有良好扩展性的一个Adapter，可以自定义多种效果！
+SimpleCursorAdapter：用于显示简单文本类型的listView，一般在数据库那里会用到，不过有点过时， 不推荐使用！
+
+
+ArrayAdapter参数的理解
+
+ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( context, android.R.layout.simple_list_item_1, StringData); 
+
+这段代码是创建一个数组适配器的代码，里面有三个参数，第一个参数是上下文，就是当前的Activity, 第二个参数是android sdk中自己内置的一个布局，它里面只有一个TextView，
+这个参数是表明我们数组中每一条数据的布局是这个view，就是将每一条数据都显示在这个view上面；第三个参数就是我们要显示的数据。
+listView会根据这三个参数，遍历adapterData里面的每一条数据，读出一条，显示到第二个参数对应的布局中，这样就形成了我们看到的listView.
+
+example1:
+listView = findViewById(R.id.mylistview);
+ArrayAdapter<String> adapter  =new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,strs);
+listView.setAdapter(adapter);
+
+example2:
+在res/values下加一个xxx.xml文件
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="myarray">
+        <item> 语文</item>
+        <item> 数学</item>
+        <item> 英语</item>
+        <item> 代码</item>
+    </string-array>
+</resources>
+然后在listview的布局中添加android:entries="@array/myarray"
+
+
