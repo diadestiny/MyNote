@@ -7,7 +7,8 @@ ctrl+p 方法参数提醒
 ctrl+/ 注释代码
 shift+f6 重命名
 双击shift键
-
+shift+ctrl+上/下 移动某行
+shift+clicked 关闭当前页面
 
 Win10操作:
 ctrl+win+上/下 最大/小化当前窗口

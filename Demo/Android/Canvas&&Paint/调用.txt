@@ -1,0 +1,8 @@
+ <com.example.cameraactivity.DrawImageView
+        android:id="@+id/drawIV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+java:
+mDrawIV = findViewById(R.id.drawIV);
+        mDrawIV.onDraw(new Canvas());
