@@ -1,0 +1,27 @@
+打印所有不超过n（n<256）的，其平方具有对称性质的数。如11*11=121。
+
+
+//循环
+#include<iostream>
+using namespace std;
+int func(int a){
+    int sum=0;
+   while(a!=0){
+       int t=a%10;
+       a/=10;
+       if(sum!=0)
+       sum*=10;
+       sum+=t;
+   }
+    return sum;
+}
+int main(){
+    int b=1;
+    while(b<256){
+        if(func(b*b)==b*b){
+            cout<<b<<endl;
+        }
+        b++;
+    }
+    return 0;
+}

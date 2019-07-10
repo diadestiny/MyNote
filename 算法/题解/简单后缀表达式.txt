@@ -1,0 +1,100 @@
+
+#include<iostream>
+#include<stack>
+#include<stdio.h>
+#include<string>
+using namespace std;
+
+stack<int> nums;
+stack<char> ops;
+
+
+
+void cal() {
+
+	int a = nums.top();
+	nums.pop();
+	int b = nums.top();
+	nums.pop();
+	char c = ops.top();
+	ops.pop();
+	int d;
+
+	if (c == '*') d = b * a;
+	else if (c == '/') d = b / a;
+	else if (c == '+') d = b + a;
+	else if (c == '-') d = b - a;
+
+	nums.push(d);
+
+}
+
+
+int main() {
+
+	string str;
+	std::cin >> str;
+
+	for (int i = 0; i < str.size(); i++) {
+
+
+		if (str[i] >= '0' && str[i] <= '9') {
+
+			int j = i, t = 0;
+			while (str[j] >= '0' && str[j] <= '9') {
+				t = t * 10 + str[j] - '0';
+				j++;
+			}
+			i = j - 1;
+			nums.push(t);
+
+
+		}
+		else {
+			char c = str[i];
+			if (ops.empty()) {
+				ops.push(c);
+				continue;
+			}
+			if (c == '+' || c == '-') {
+				if (ops.top() == '*' || ops.top() == '/') {
+					cal();
+					while (!ops.empty()) {
+						cal();
+					}
+					ops.push(c);
+
+				}
+				else if (ops.top() == '+' || ops.top()== '-') {
+                			    while (!ops.empty()) {
+						cal();
+					}
+					ops.push(c);
+
+				}
+			}
+			if (c == '*' || c == '/') {
+
+			    if(ops.top()=='*'||ops.top()=='/'){
+                 			   while (!ops.empty()) {
+					cal();
+					}
+					ops.push(c);
+			    }
+			   else if (ops.top() == '+' || ops.top()== '-') {
+                     			ops.push(c);
+			   }
+
+			}
+		}
+
+	}
+	while (!ops.empty()) {
+		cal();
+	}
+
+
+	cout << nums.top();
+
+	return 0;
+}

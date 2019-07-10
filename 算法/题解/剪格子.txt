@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include<iostream>
+#include<string>
+#include<set>
+#include<queue>
+#include<cstring>
+
+using namespace std;
+
+int m, n, sum,mins;
+
+int ditu[10][10], vis[10][10];
+
+int dir[4][2] = { -1,0,1,0,0,-1,0,1 };
+
+
+void dfs(int x,int y,int v,int step)
+{
+    if(v==sum  &&step<mins) {
+         mins = step;
+         return;
+    }
+
+     for (int i = 0; i < 4; i++)
+    {
+        int dx = x + dir[i][0];
+        int dy = y + dir[i][1];
+    if (!vis[dx][dy] && dx >= 0 && dx < n&&dy >= 0 && dy < m&&v + ditu[dx][dy] <= sum)
+    {
+        vis[dx][dy] =1;
+        dfs(dx,dy,v+ditu[dx][dy],step+1);
+        vis[dx][dy]=0;
+    }
+    }
+}
+int main()
+{
+    cin>>m>>n;
+    sum=0;
+    mins =0x3f3f3f3f;
+    for (int i = 0; i < n; i++)
+	{
+	    for (int j = 0; j < m; j++)
+		{
+			cin >>ditu[i][j];
+			sum += ditu[i][j];
+		}
+	}
+	sum/=2;
+	vis[0][0]=1;
+	dfs(0,0,ditu[0][0],1);
+	if(mins<0x3f3f3f3f) cout<<mins;
+	else cout<<0;
+
+    return 0;
+}
+
+
+dfs 基本框架
+void dfs()//参数用来表示状态 
+{ 
+    if(到达终点状态) //第一个if一般都是获取正确解的条件
+    { 
+        //按照自己的需求 
+        return; 
+    } 
+    if(越界或者是不合法状态)
+        return; 
+    if(特殊状态)//剪枝
+        return ;
+     
+    for(扩展方式) 
+    { 
+        if(扩展方式所达到状态合法) 
+        { 
+            修改操作;//根据题意来添加 
+            标记;  
+            dfs（）;
+            (还原标记);  //若有这步，就是回溯(本题就用到了这种方法)
+        } 
+  
+    } 
+}
+
